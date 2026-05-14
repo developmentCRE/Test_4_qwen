@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+#text {
+    font-size: 2em;
+    transition: all 0.5s ease;
+}
+
+#startButton, #analyzeButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#aiOutput {
+    white-space: pre-wrap;
+    background-color: #fff;
+    border-radius: 5px;
+}
