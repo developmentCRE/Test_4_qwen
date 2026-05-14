@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
@@ -5,13 +7,16 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const HF_TOKEN = process.env.HF_TOKEN; // ✅ Используем переменную окружения
-const MODEL_URL = "https://api-inference.huggingface.co/models/sberbank-ai/rugpt3large_based_on_gpt2";
+const HF_TOKEN = process.env.HF_TOKEN;
+const MODEL_URL = "https://api-inference.huggingface.co/models/gpt2";
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('frontend'));
 
+// ✅ Отдача статики из frontend/
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+// ✅ Маршрут для ИИ-анализа
 app.post('/api/analyze', async (req, res) => {
     const { text } = req.body;
 
@@ -39,11 +44,13 @@ app.post('/api/analyze', async (req, res) => {
 
         res.json(data);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Ошибка при запросе к Hugging Face." });
     }
 });
 
-app.get('/', (req, res) => {
+// ✅ Все остальные запросы отдаём index.html (для SPA)
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
