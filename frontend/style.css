@@ -14,14 +14,14 @@ body {
     transition: all 0.5s ease;
 }
 
-#startButton, #analyzeButton {
+#startButton, #analyzeButton, #testAIButton {
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
 }
 
-#aiOutput {
+#aiOutput, #testAIResult {
     white-space: pre-wrap;
     background-color: #fff;
     border-radius: 5px;

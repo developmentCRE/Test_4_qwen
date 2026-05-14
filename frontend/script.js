@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 10000);
     });
 
+    // ✅ Анализ текста
     document.getElementById('analyzeButton').addEventListener('click', async () => {
         const inputText = document.getElementById('textInput').value;
         const outputDiv = document.getElementById('aiOutput');
@@ -60,6 +61,26 @@ document.addEventListener('DOMContentLoaded', () => {
             outputDiv.textContent = data[0]?.generated_text || 'Не удалось получить ответ.';
         } catch (error) {
             outputDiv.textContent = 'Ошибка сети.';
+            console.error(error);
+        }
+    });
+
+    // ✅ Проверка ИИ
+    document.getElementById('testAIButton').addEventListener('click', async () => {
+        const resultDiv = document.getElementById('testAIResult');
+        resultDiv.textContent = 'Проверка...';
+
+        try {
+            const response = await fetch('/api/test-ai');
+            const data = await response.json();
+
+            if (data.ok) {
+                resultDiv.textContent = '✅ Модель доступна!';
+            } else {
+                resultDiv.textContent = `❌ Ошибка: ${data.error}`;
+            }
+        } catch (error) {
+            resultDiv.textContent = '❌ Ошибка сети';
             console.error(error);
         }
     });
